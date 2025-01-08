@@ -22,7 +22,7 @@ func (t *Throttle) Doable() bool {
 	return true
 }
 
-func NewThrottle(max uint64, interval time.Duration) *Throttle {
+func New(max uint64, interval time.Duration) *Throttle {
 	return &Throttle{
 		last:        time.Now(),
 		interval:    interval,

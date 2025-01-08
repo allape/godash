@@ -93,6 +93,12 @@ func (o *Observable[T]) SubscriptionCount() int {
 	return len(o.subscriptions)
 }
 
+func New[T any]() *Observable[T] {
+	return &Observable[T]{
+		locker: &sync.Mutex{},
+	}
+}
+
 type Group[T any] struct {
 	observables map[ID]*Observable[T]
 	locker      sync.Locker
@@ -116,9 +122,7 @@ func (r *Group[T]) Subscribe(id ID) *Subscription[T] {
 
 	observable, ok := r.observables[id]
 	if !ok {
-		observable = &Observable[T]{
-			locker: &sync.Mutex{},
-		}
+		observable = New[T]()
 		r.observables[id] = observable
 	}
 

@@ -6,7 +6,7 @@ import (
 )
 
 func TestThrottle(t *testing.T) {
-	thro := NewThrottle(3, time.Second)
+	thro := New(3, time.Second)
 	for i := 0; i < 3; i++ {
 		if thro.Doable() == false {
 			t.Error("Doable() should return true")
